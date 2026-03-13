@@ -15,7 +15,8 @@ const LANG_TO_TILE_FIELD: Record<string, string> = {
   sv: 'name:sv',
   ru: 'name:ru',
   ar: 'name:ar',
-  zh: 'name:zh',
+  zh: 'name:zh', // 保留給切換到簡體介面的使用者
+  'zh-TW': 'name:en', // ✨ 關鍵修改：當介面是繁體中文時，地圖強制顯示英文 (避免顯示簡體)
   ja: 'name:ja',
   ko: 'name:ko',
   ro: 'name:ro',
