@@ -74,7 +74,8 @@ export const STOCK_EXCHANGES: StockExchange[] = [
   { id: 'asx', name: 'Australian Securities Exchange', shortName: 'ASX', city: 'Sydney', country: 'AU', lat: -33.8672, lon: 151.2067, tier: 'major', marketCap: 1.7, tradingHours: '10:00-16:00 AEST', timezone: 'Australia/Sydney', description: 'Australia\'s primary exchange' },
   { id: 'xetra', name: 'Deutsche Börse (Xetra)', shortName: 'Xetra', city: 'Frankfurt', country: 'DE', lat: 50.1110, lon: 8.6804, tier: 'major', marketCap: 2.3, tradingHours: '09:00-17:30 CET', timezone: 'Europe/Berlin', description: 'Germany\'s primary exchange' },
   { id: 'twse', name: 'Taiwan Stock Exchange', shortName: 'TWSE', city: 'Taipei', country: 'TW', lat: 25.0388, lon: 121.5632, tier: 'major', marketCap: 2.0, tradingHours: '09:00-13:30 CST', timezone: 'Asia/Taipei', description: 'Taiwan\'s primary exchange' },
-
+  { id: 'taifex', name: 'Taiwan Futures Exchange', shortName: 'TAIFEX', city: 'Taipei', country: 'TW', lat: 25.0322, lon: 121.5471, tier: 'major', tradingHours: '08:45-13:45 CST (Night: 15:00-05:00)', timezone: 'Asia/Taipei', description: 'Taiwan\'s futures and options exchange, key for foreign capital tracking' },
+  
   // Emerging/Regional exchanges
   { id: 'b3', name: 'B3 (Brasil Bolsa Balcão)', shortName: 'B3', city: 'São Paulo', country: 'BR', lat: -23.5486, lon: -46.6341, tier: 'emerging', marketCap: 0.9, tradingHours: '10:00-17:30 BRT', timezone: 'America/Sao_Paulo', description: 'Brazil\'s stock exchange' },
   { id: 'jse', name: 'Johannesburg Stock Exchange', shortName: 'JSE', city: 'Johannesburg', country: 'ZA', lat: -26.1088, lon: 28.0318, tier: 'emerging', marketCap: 1.2, tradingHours: '09:00-17:00 SAST', timezone: 'Africa/Johannesburg', description: 'Africa\'s largest exchange' },
@@ -135,6 +136,7 @@ export const CENTRAL_BANKS: CentralBank[] = [
   { id: 'sama', name: 'Saudi Central Bank', shortName: 'SAMA', city: 'Riyadh', country: 'SA', lat: 24.6938, lon: 46.6850, type: 'regional', currency: 'SAR', description: 'Saudi Arabia\'s central bank' },
   { id: 'bis', name: 'Bank for International Settlements', shortName: 'BIS', city: 'Basel', country: 'CH', lat: 47.5585, lon: 7.5866, type: 'supranational', description: 'Central bank of central banks' },
   { id: 'imf', name: 'International Monetary Fund', shortName: 'IMF', city: 'Washington D.C.', country: 'US', lat: 38.8987, lon: -77.0425, type: 'supranational', description: 'Global financial stability institution' },
+  { id: 'cbc-tw', name: 'Central Bank of the Republic of China (Taiwan)', shortName: 'CBC', city: 'Taipei', country: 'TW', lat: 25.0315, lon: 121.5173, type: 'regional', currency: 'TWD', description: 'Taiwan\'s central bank, manages foreign exchange reserves and monetary policy' },
 ];
 
 // Commodity trading hubs
