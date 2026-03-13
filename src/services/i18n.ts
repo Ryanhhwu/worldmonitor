@@ -4,7 +4,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 // English is always needed as fallback — bundle it eagerly.
 import enTranslation from '../locales/en.json';
 
-const SUPPORTED_LANGUAGES = ['en', 'bg', 'cs', 'fr', 'de', 'el', 'es', 'it', 'pl', 'pt', 'nl', 'sv', 'ru', 'ar', 'zh', 'ja', 'ko', 'ro', 'tr', 'th', 'vi'] as const;
+const SUPPORTED_LANGUAGES = ['en', 'zh-TW', 'zh', 'bg', 'cs', 'fr', 'de', 'el', 'es', 'it', 'pl', 'pt', 'nl', 'sv', 'ru', 'ar', 'ja', 'ko', 'ro', 'tr', 'th', 'vi'] as const;
 type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number];
 type TranslationDictionary = Record<string, unknown>;
 
@@ -20,7 +20,12 @@ const localeModules = import.meta.glob<TranslationDictionary>(
 const RTL_LANGUAGES = new Set(['ar']);
 
 function normalizeLanguage(lng: string): SupportedLanguage {
-  const base = (lng || 'en').split('-')[0]?.toLowerCase() || 'en';
+  if (!lng) return 'en';
+  if (lng === 'zh-TW' || lng.toLowerCase() === 'zh-tw' || lng.toLowerCase() === 'zh-hk') {
+    return 'zh-TW';
+  }
+
+  const base = lng.split('-')[0]?.toLowerCase() || 'en';
   if (SUPPORTED_LANGUAGE_SET.has(base as SupportedLanguage)) {
     return base as SupportedLanguage;
   }
@@ -29,7 +34,12 @@ function normalizeLanguage(lng: string): SupportedLanguage {
 
 function applyDocumentDirection(lang: string): void {
   const base = lang.split('-')[0] || lang;
-  document.documentElement.setAttribute('lang', base === 'zh' ? 'zh-CN' : base);
+  if (lang === 'zh-TW') {
+    document.documentElement.setAttribute('lang', 'zh-TW');
+  } else {
+    document.documentElement.setAttribute('lang', base === 'zh' ? 'zh-CN' : base);
+  }
+  
   if (RTL_LANGUAGES.has(base)) {
     document.documentElement.setAttribute('dir', 'rtl');
   } else {
@@ -116,6 +126,7 @@ export async function changeLanguage(lng: string): Promise<void> {
 // Helper to get current language (normalized to short code)
 export function getCurrentLanguage(): string {
   const lang = i18next.language || 'en';
+  if (lang === 'zh-TW') return 'zh-TW';
   return lang.split('-')[0]!;
 }
 
@@ -125,16 +136,17 @@ export function isRTL(): boolean {
 
 export function getLocale(): string {
   const lang = getCurrentLanguage();
-  const map: Record<string, string> = { en: 'en-US', bg: 'bg-BG', cs: 'cs-CZ', el: 'el-GR', zh: 'zh-CN', pt: 'pt-BR', ja: 'ja-JP', ko: 'ko-KR', ro: 'ro-RO', tr: 'tr-TR', th: 'th-TH', vi: 'vi-VN' };
+  const map: Record<string, string> = { en: 'en-US', bg: 'bg-BG', cs: 'cs-CZ', el: 'el-GR', zh: 'zh-CN', 'zh-TW': 'zh-TW', pt: 'pt-BR', ja: 'ja-JP', ko: 'ko-KR', ro: 'ro-RO', tr: 'tr-TR', th: 'th-TH', vi: 'vi-VN' };
   return map[lang] || lang;
 }
 
 export const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'zh-TW', label: '繁體中文', flag: '🇹🇼' },
+  { code: 'zh', label: '简体中文', flag: '🇨🇳' },
   { code: 'bg', label: 'Български', flag: '🇧🇬' },
   { code: 'ar', label: 'العربية', flag: '🇸🇦' },
   { code: 'cs', label: 'Čeština', flag: '🇨🇿' },
-  { code: 'zh', label: '中文', flag: '🇨🇳' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
   { code: 'el', label: 'Ελληνικά', flag: '🇬🇷' },
